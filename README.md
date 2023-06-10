@@ -39,3 +39,6 @@ CODE
         kernel_call
 ```
 
+Please note that I am not good at assembly, so I might do some mistakes, especially with multiple platforms, so you can either create a pull request or an issue.
+----------------------------------------
+

@@ -1,13 +1,16 @@
 DATA
     msg: 'Hello, world!'
+    msg2: "Hello, again!"
     len: msg.len
 
 CODE
     _start:
-        edx = len
-        ecx = msg
+        edx = len   ; len
+        ecx = msg   ; msg
         ebx = 1
         eax = 4
+        kernel_call
+        ecx = msg2  ; msg2
         kernel_call
         eax = 1
         kernel_call

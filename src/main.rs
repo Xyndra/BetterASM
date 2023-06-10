@@ -21,8 +21,9 @@ fn string_to_array(file: String) -> Vec<Vec<String>> {
 
     while data_copy.len() > 0 {
         let line = util::strip_whitespace(data_copy[0].to_string());
-        lexer.translate_to_asm(line);
         data_copy.remove(0);
+        if line.len() == 0 { continue; }
+        lexer.translate_to_asm(line);
     }
 
     return vec![lexer.data, lexer.code];

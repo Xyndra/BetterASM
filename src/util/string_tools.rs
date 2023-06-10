@@ -14,13 +14,23 @@ use regex::{Captures, Regex};
 /// assert_eq!(str_without_whitespace, "hello world");
 /// ```
 ///
-pub fn strip_whitespace (str_with_whitespace: String) -> String {
+pub fn strip_whitespace (str_with_whitespace: String) -> Vec<String> {
     lazy_static! {
-        static ref RE: Regex = Regex::new(r#"^\s*(\S*(( = ((['"].*['"])|(\S*)))|(: ((['"].*['"])|(\S*))))?)\s*$"#).unwrap();
+        static ref RE: Regex = Regex::new(r#"^\s*(\S*(( = ((['"].*['"])|(\S*)))|(: ((['"].*['"])|(\S*))))?)\s*(;.*)?$"#).unwrap();
     }
     if !RE.is_match(&str_with_whitespace) {
         panic!("Invalid line: {}", str_with_whitespace);
     }
     let captures: Captures = RE.captures(&str_with_whitespace).unwrap();
-    return captures[1].to_string();
+    let instruction: String = captures.get(1).map_or_else(|| "".to_string(), |m| m.as_str().to_string());
+    let comment: String = captures.get(11).map_or_else(|| "".to_string(), |m| m.as_str().to_string());
+    if !instruction.is_empty() {
+        if !comment.is_empty() {
+            return vec![instruction, comment];
+        }
+        return vec![instruction, "".to_string()];
+    } else if !comment.is_empty() {
+        return vec!["".to_string(), comment];
+    }
+    return vec![];
 }

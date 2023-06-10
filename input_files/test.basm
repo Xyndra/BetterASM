@@ -1,0 +1,13 @@
+DATA
+    msg: 'Hello, world!'
+    len: msg.len
+
+CODE
+    _start:
+        edx = len
+        ecx = msg
+        ebx = 1
+        eax = 4
+        kernel_call
+        eax = 1
+        kernel_call

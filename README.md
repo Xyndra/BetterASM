@@ -8,8 +8,8 @@ My wish is to turn this:
 
 ```asm
 section	.data
-msg	db	'Hello, world!'	;our dear string
-len	equ	$ - msg			;length of our dear string
+msg	db	'Hello, world!'	;our string
+len	equ	$ - msg	        ;length of our string
 
 section	.text
 	global _start       ;must be declared for using gcc
